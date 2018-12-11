@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Weather_Display_Dotnet_Core.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    class SettingsViewModel : ViewModelBase
     {
-        public string Greeting => "Hello World!";
+
 
 
 
