@@ -1,0 +1,13 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Weather_Display_Dotnet_Core.ViewModels;assembly=Weather_Display_Dotnet_Core"
+        Icon="resm:Weather_Display_Dotnet_Core.Assets.avalonia-logo.ico"
+        Title="Weather_Display_Dotnet_Core">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+  
+  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  
+</Window>
