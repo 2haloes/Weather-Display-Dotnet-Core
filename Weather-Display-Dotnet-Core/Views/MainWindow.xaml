@@ -3,14 +3,12 @@
         xmlns:vm="clr-namespace:Weather_Display_Dotnet_Core.ViewModels;assembly=Weather_Display_Dotnet_Core"
         Icon="resm:Weather_Display_Dotnet_Core.Assets.avalonia-logo.ico"
         Title="Weather_Display_Dotnet_Core"
-        WindowState="Maximized"
-        Background="SkyBlue"
-        HasSystemDecorations="false">
+        Background="SkyBlue">
 
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>
   
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <TextBlock Text="Hello!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
   
 </Window>

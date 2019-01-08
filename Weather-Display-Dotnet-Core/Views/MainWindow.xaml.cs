@@ -9,6 +9,18 @@ namespace Weather_Display_Dotnet_Core.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            // This is here because it is impossible to get the screen resolution otherwise
+            if (System.IO.File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json"))
+            {
+                Models.Settings initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Settings>(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json");
+                if (initSettings.fullScreen)
+                {
+                    HasSystemDecorations = false;
+                    WindowState = WindowState.Maximized;
+                    ClientSize = new Size(Screens.Primary.Bounds.Width, Screens.Primary.Bounds.Height);
+                }
+            }
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -17,10 +29,6 @@ namespace Weather_Display_Dotnet_Core.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            // Could not get this to work using XAML (Would crash and report an issue relating to not being able to get a static member)
-            this.Height = Screens.Primary.Bounds.Height;
-            this.Width = Screens.Primary.Bounds.Width;
         }
     }
 }
