@@ -28,4 +28,7 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="C:\Windows\System32\xcopy $(SolutionDir)$(SolutionName)\images $(TargetDir)images\ /S /D" />
+  </Target>
 </Project>

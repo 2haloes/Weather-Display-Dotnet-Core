@@ -10,7 +10,8 @@ namespace Weather_Display_Dotnet_Core.Views
         {
             InitializeComponent();
 
-            // This is here because it is impossible to get the screen resolution otherwise
+            // This is here because it is impossible to get the screen resolution otherwise.
+            // If the screen resolution can be found from the ViewModel or have a variable passed to it then please inform me
             if (System.IO.File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json"))
             {
                 Models.Settings initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Settings>(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json");

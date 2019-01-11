@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Media.Imaging;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Weather_Display_Dotnet_Core.Models
             public string icon { get => _icon; set => _icon = value; }
             public double temperature { get => _temperature; set => _temperature = value; }
             public long time { get => _time; set => _time = value; }
+            public IBitmap iconBitmap { get => new Bitmap("images/" + _icon + ".png"); }
         }
         /// <summary>
         /// The summary for the week as well as collecting all of the
@@ -59,6 +61,7 @@ namespace Weather_Display_Dotnet_Core.Models
             public double temperatureMax { get => _temperatureMax; set => _temperatureMax = value; }
             public long sunriseTime { get => _sunriseTime; set => _sunriseTime = value; }
             public long sunsetTime { get => _sunsetTime; set => _sunsetTime = value; }
+            public IBitmap iconData { get => new Bitmap("images/" + _icon + ".png"); }
         }
         /// <summary>
         /// Converts a long to a date
