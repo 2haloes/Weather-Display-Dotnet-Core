@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Weather_Display_Dotnet_Core.Models
 {
-    class WeatherData
+    public class WeatherData
     {
         /// <summary>
         /// The data for the current moment
