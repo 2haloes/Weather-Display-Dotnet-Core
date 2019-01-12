@@ -40,7 +40,13 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private async void TimerTrigger(object source, ElapsedEventArgs e)
         {
             // TODO: After implimenting settings, change the number to programSettings.minCheck*12 (minCheck being the minutes between loading the weather data)
-            if (cycleCheck >= 24)
+            if (cycleCheck < 24)
+            {
+                // TODO: Possibly change CurrentTime to a getter and just update it here
+                CurrentTime = DateTime.Now.ToString("hh:mmtt");
+                cycleCheck++;
+            }
+            else
             {
                 cycleCheck = 0;
 
@@ -53,23 +59,13 @@ namespace Weather_Display_Dotnet_Core.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    List<string> logContent = new List<string>();
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyy-MM-dd") + "_errorLog.txt"))
-                    {
-                        logContent = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyy-MM-dd") + "_errorLog.txt").ToList();
-                    }
-                    logContent.Add(DateTime.Now.ToLongTimeString() + ": " + ex.Message);
-                    File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyy-MM-dd") + "_errorLog.txt", logContent);
+                    await MainWindowModel.ErrorReportAsync(ex.Message);
                     return;
                 }
 
                 WeatherData = JsonConvert.DeserializeObject<WeatherData.WeatherReport>(await response.Content.ReadAsStringAsync());
-            }
-            else
-            {
-                // TODO: Possibly change CurrentTime to a getter and just update it here
-                CurrentTime = DateTime.Now.ToString("hh:mmtt");
-                cycleCheck++;
+
+                WeatherData = await MainWindowModel.SetTempDisplayAsync(WeatherData);
             }
             return;
         }
