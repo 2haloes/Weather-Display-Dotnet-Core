@@ -33,6 +33,7 @@ namespace Weather_Display_Dotnet_Core.Models
         /// <returns></returns>
         public static Task<WeatherData.WeatherReport> SetTempDisplayAsync(WeatherData.WeatherReport weatherData)
         {
+            // Why not just have this set up as a getter? Well I couldn't figure out how to pass the value from flags to the other classes
             string tempExt = (weatherData.flags.units == "us") ? "°F" : "°C";
             int decimalPlaces = (weatherData.flags.units == "us") ? 0 : 1;
 

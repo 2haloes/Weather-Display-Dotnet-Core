@@ -69,7 +69,7 @@ namespace Weather_Display_Dotnet_Core.Models
             public long sunsetTime { get => _sunsetTime; set => _sunsetTime = value; }
             // Generated values based on the JSON
             [JsonIgnore]
-            public IBitmap iconData { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/" + _icon + ".png"); }
+            public IBitmap iconBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/" + _icon + ".png"); }
             [JsonIgnore]
             public string dayDisplay { get => FromUnix(time).ToString("ddd"); }
             [JsonIgnore]
