@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Timers;
+using Avalonia.Media.Imaging;
 
 namespace Weather_Display_Dotnet_Core.ViewModels
 {
@@ -30,6 +31,9 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private Timer _cycleTimer;
 
         public HttpClient websiteClient { get => _websiteClient; set => SetField(ref _websiteClient, value); }
+        public IBitmap DefaultIcon { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/clear-day.png"); }
+        public IBitmap SunRiseBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-rise.png"); }
+        public IBitmap SunSetBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-set.png"); }
         public int cycleCheck { get => _cycleCheck; set => SetField(ref _cycleCheck, value); }
         public Settings programSettings { get => _programSettings; set => SetField(ref _programSettings, value); }
         public WeatherData.WeatherReport WeatherData { get => _weatherData; set => SetField(ref _weatherData, value); }

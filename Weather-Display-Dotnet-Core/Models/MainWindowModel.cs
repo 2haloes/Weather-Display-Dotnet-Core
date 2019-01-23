@@ -34,7 +34,7 @@ namespace Weather_Display_Dotnet_Core.Models
         public static Task<WeatherData.WeatherReport> SetTempDisplayAsync(WeatherData.WeatherReport weatherData)
         {
             string tempExt = (weatherData.flags.units == "us") ? "°F" : "°C";
-            int decimalPlaces = (weatherData.flags.units == "us") ? 1 : 2;
+            int decimalPlaces = (weatherData.flags.units == "us") ? 0 : 1;
 
             weatherData.currently.temperatureDisplay = weatherData.currently.temperature.ToString("F" + decimalPlaces) + tempExt;
 

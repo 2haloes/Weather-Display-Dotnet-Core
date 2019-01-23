@@ -22,7 +22,7 @@
   <Grid Margin="5">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="296"></ColumnDefinition>
-      <ColumnDefinition Width="Auto"></ColumnDefinition>
+      <ColumnDefinition Width="*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
     
     <Grid Name="NowData" Grid.Column="0">
@@ -36,11 +36,56 @@
         <RowDefinition Height="Auto"></RowDefinition>
         <RowDefinition Height="Auto"></RowDefinition>
       </Grid.RowDefinitions>
-      <TextBlock Text="{Binding CurrentTime}" Grid.Row="0" FontSize="64" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-      <Image Source="{Binding WeatherData.currently.iconBitmap}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+      <Button Background="SkyBlue" Height="88">
+        <TextBlock Text="{Binding CurrentTime}" Grid.Row="0" FontSize="64" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+      </Button>
+      
+      <Image Source="{Binding DefaultIcon}" Grid.Row="1" Height="148" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
       <TextBlock Text="Wind" Grid.Row="2" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <TextBlock Text="00.0°C" Grid.Row="3" FontSize="84" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <TextBlock Text="Wind is happening somewhere in the world, I dunno" Grid.Row="4" Width="296" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
+      <Button Grid.Row="5" Width="256" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="SkyBlue">Powered by DarkSky</Button>
     </Grid>
 
+    <Grid Name="DayData" Grid.Column="1" Margin="10">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="Auto"></RowDefinition>
+        <RowDefinition Height="Auto"></RowDefinition>
+      </Grid.RowDefinitions>
+
+      <Grid Name="Day" Grid.Row="0" Height="80">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Mon" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="5,0,5,0"></TextBlock>
+        <Image Source="{Binding DefaultIcon}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Width="96" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,0" />
+        <TextBlock Text="Max:" FontWeight="Bold" Grid.Row="1" Grid.Column="2" FontSize="24" Margin="5,0,5,0"></TextBlock>
+        <TextBlock Text="Min:" FontWeight="Bold" Grid.Row="1" Grid.Column="3" FontSize="24" Margin="5,0,5,0"></TextBlock>
+        <TextBlock Text="00.0" FontWeight="Bold" Grid.Row="2" Grid.Column="2" FontSize="24" Margin="5,0,5,0"></TextBlock>
+        <TextBlock Text="00.0" FontWeight="Bold" Grid.Row="2" Grid.Column="3" FontSize="24" Margin="5,0,5,0"></TextBlock>
+        <Image Source="{Binding SunRiseBitmap}" Grid.Row="1" Grid.Column="4" Height="34" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,0"/>
+        <Image Source="{Binding SunSetBitmap}" Grid.Row="1" Grid.Column="5" Height="34" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,0"/>
+        <TextBlock Text="00.0" FontWeight="Bold" Grid.Row="2" Grid.Column="4" FontSize="24" Margin="5,0,5,0"></TextBlock>
+        <TextBlock Text="00.0" FontWeight="Bold" Grid.Row="2" Grid.Column="5" FontSize="24" Margin="5,0,5,0"></TextBlock>
+        <TextBlock Text="Wind is happening somewhere in the world, I dunno" FontSize="8" Grid.Row="0" Grid.RowSpan="3" Grid.Column="6" TextWrapping="Wrap" Width="80" Margin="5,0,5,0"></TextBlock>
+      </Grid>
+      
+    </Grid>
   </Grid>
 
 </Window>
