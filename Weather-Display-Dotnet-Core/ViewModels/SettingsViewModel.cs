@@ -6,11 +6,16 @@ using System.Text;
 
 namespace Weather_Display_Dotnet_Core.ViewModels
 {
-    class SettingsViewModel : ViewModelBase
+    class SettingsViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        public SettingsViewModel()
+        {
+            initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Settings>(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json");
+        }
 
+        private Models.Settings _initSettings;
 
-
+        public Models.Settings initSettings { get => _initSettings; set => _initSettings = value; }
 
 
 
