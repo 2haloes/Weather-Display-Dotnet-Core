@@ -36,7 +36,7 @@
         <RowDefinition Height="Auto"></RowDefinition>
         <RowDefinition Height="Auto"></RowDefinition>
       </Grid.RowDefinitions>
-      <Button Background="SkyBlue" Height="88">
+      <Button Command="{Binding LoadSettingsWindow}" Background="SkyBlue" Height="88">
         <TextBlock Text="{Binding CurrentTime}" Grid.Row="0" FontSize="64" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
       </Button>
       

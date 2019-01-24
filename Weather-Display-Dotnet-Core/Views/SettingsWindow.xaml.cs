@@ -1,10 +1,11 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Weather_Display_Dotnet_Core.Models;
 
 namespace Weather_Display_Dotnet_Core.Views
 {
-    public class SettingsWindow : Window
+    public class SettingsWindow : Window, ICloseWin
     {
         public SettingsWindow()
         {

@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Weather_Display_Dotnet_Core.Models;
 
 namespace Weather_Display_Dotnet_Core.ViewModels
 {
@@ -10,21 +14,30 @@ namespace Weather_Display_Dotnet_Core.ViewModels
     {
         public SettingsViewModel()
         {
-            initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Settings>(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json");
-            LangList = Models.SettingsModel.langInit();
-            UnitList = Models.SettingsModel.unitInit();
+            initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings>(File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json"));
+            LangList = SettingsModel.langInit();
+            UnitList = SettingsModel.unitInit();
         }
 
         private Models.Settings _initSettings;
         private Dictionary<string, string> _langList;
         private Dictionary<string, string> _unitList;
+        private DelegateCommand<ICloseWin> _closeWindowComand;
 
         public Models.Settings initSettings { get => _initSettings; set => _initSettings = value; }
         public Dictionary<string, string> LangList { get => _langList; set => _langList = value; }
         public Dictionary<string, string> UnitList { get => _unitList; set => _unitList = value; }
+        public DelegateCommand<ICloseWin> CloseWindowComand { get => _closeWindowComand; set => _closeWindowComand = value; }
 
 
-
+        private void CloseWindow(ICloseWin window)
+        {
+            if (window != null)
+            {
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "settings.json", JsonConvert.SerializeObject(initSettings));
+                window.Close();
+            }
+        }
 
         #region PropertyChanged code
         public event PropertyChangedEventHandler PropertyChanged;

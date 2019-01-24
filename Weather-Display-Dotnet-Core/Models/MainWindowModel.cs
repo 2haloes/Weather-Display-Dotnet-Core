@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,32 @@ namespace Weather_Display_Dotnet_Core.Models
 {
     class MainWindowModel
     {
+        // readonly instead of const because AppDomain.CurrentDomain.BaseDirectory may not be consistent and this throws an error
+        public static readonly string settingsFile = AppDomain.CurrentDomain.BaseDirectory + "settings.json";
+
+        public static Settings LoadSettings()
+        {
+            if (File.Exists(settingsFile))
+            {
+                return JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFile));
+            }
+            else
+            {
+                Settings newSettings = new Settings
+                {
+                    fullScreen = false,
+                    apiKey = "",
+                    lat = 0,
+                    lon = 0,
+                    units = "auto",
+                    minCheck = 2,
+                    lang = "en"
+                };
+                File.WriteAllText(settingsFile, JsonConvert.SerializeObject(newSettings));
+                return newSettings;
+            }
+        }
+
         /// <summary>
         /// If there is an error downloading the JSON data, this will log it into the program folder
         /// </summary>

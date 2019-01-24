@@ -11,7 +11,7 @@ namespace Weather_Display_Dotnet_Core.Models
         public static Dictionary<string,string> langInit()
         {
             // If there is a language missing here then please open a PR or an issue
-            return (Dictionary<string,string>)new Dictionary<string, string>()
+            return new Dictionary<string, string>()
             {
                 // Norwegian Bokmål has 2 bindings, nb and no. nb is used here
                 {"Arabic", "ar"},
@@ -56,7 +56,7 @@ namespace Weather_Display_Dotnet_Core.Models
                 {"Igpay Atinlay", "x-pig-latin"},
                 {"Chinese (Simplified)", "zh"},
                 {"Chinese (Traditional)", "zh-tw"}
-            }.OrderBy(i => i.Key);
+            };
             // Why programmically order instead of ordering this list in code?
             // This list is taken from the Darksky API Docs, any missing languages can easily be added back in
             // But the displayed list should be in a good order so that it can actually be used

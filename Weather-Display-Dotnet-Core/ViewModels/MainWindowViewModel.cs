@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Timers;
 using Avalonia.Media.Imaging;
+using Prism.Commands;
 
 namespace Weather_Display_Dotnet_Core.ViewModels
 {
@@ -21,6 +22,8 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             CurrentTime = DateTime.Now.ToString("hh:mmtt");
             SetTimer();
             websiteClient = new HttpClient();
+            programSettings = MainWindowModel.LoadSettings();
+            LoadSettingsWindow = new DelegateCommand(async () => await OpenSettingsWindow());
         }
 
         private HttpClient _websiteClient;
@@ -29,7 +32,9 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private WeatherData.WeatherReport _weatherData;
         private string _currentTime;
         private Timer _cycleTimer;
+        private DelegateCommand _loadSettingsWindow;
 
+        public DelegateCommand LoadSettingsWindow { get => _loadSettingsWindow; set => SetField(ref _loadSettingsWindow, value); }
         public HttpClient websiteClient { get => _websiteClient; set => SetField(ref _websiteClient, value); }
         public IBitmap DefaultIcon { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/clear-day.png"); }
         public IBitmap SunRiseBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-rise.png"); }
@@ -84,6 +89,12 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             cycleTimer.Enabled = true;
         }
 
+        private async System.Threading.Tasks.Task OpenSettingsWindow()
+        {
+            Views.SettingsWindow settingsWin = new Views.SettingsWindow();
+            settingsWin.Show();
+            programSettings = MainWindowModel.LoadSettings();
+        }
 
         #region PropertyChanged code
         public event PropertyChangedEventHandler PropertyChanged;
