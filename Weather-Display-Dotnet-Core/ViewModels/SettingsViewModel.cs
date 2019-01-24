@@ -11,12 +11,17 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public SettingsViewModel()
         {
             initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Settings>(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json");
+            LangList = Models.SettingsModel.langInit();
+            UnitList = Models.SettingsModel.unitInit();
         }
 
         private Models.Settings _initSettings;
+        private Dictionary<string, string> _langList;
+        private Dictionary<string, string> _unitList;
 
         public Models.Settings initSettings { get => _initSettings; set => _initSettings = value; }
-
+        public Dictionary<string, string> LangList { get => _langList; set => _langList = value; }
+        public Dictionary<string, string> UnitList { get => _unitList; set => _unitList = value; }
 
 
 
