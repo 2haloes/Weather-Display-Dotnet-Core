@@ -5,7 +5,7 @@ using Weather_Display_Dotnet_Core.Models;
 
 namespace Weather_Display_Dotnet_Core.Views
 {
-    public class SettingsWindow : Window, ICloseWin
+    public class SettingsWindow : Window
     {
         public SettingsWindow()
         {

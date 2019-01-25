@@ -1,26 +1,28 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Weather_Display_Dotnet_Core.ViewModels;assembly=Weather_Display_Dotnet_Core"
-        Title="Settings">
+        Title="Settings"
+        Height="440" 
+        Width="240">
 
   <!--<Design.DataContext>
     <vm:settingsViewModel/>
   </Design.DataContext>-->
-  <Grid>
+  <Grid Margin="10">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"></ColumnDefinition>
       <ColumnDefinition Width="*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
-    <RowDefinition Height="Auto"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
     </Grid.RowDefinitions>
     <TextBlock Text="Settings" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10"></TextBlock>
     <TextBlock Text="API Key:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
@@ -37,6 +39,8 @@
     <CheckBox IsChecked="{Binding initSettings.fullScreen}" Grid.Row="6" Grid.Column="1" Margin="0,10,0,10"></CheckBox>
     <TextBlock Text="Language:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
     <DropDown Items="{Binding LangList}" SelectedItem="{Binding initSettings.lang}" Grid.Row="7" Grid.Column="1" Margin="0,10,0,10"></DropDown>
-    <Button Command="{Binding SaveSettings}" Grid.Row="8" Grid.ColumnSpan="2" Grid.Column="0" >Save and close</Button>
+    <Button Command="{Binding SaveComand}" Grid.Row="8" Grid.ColumnSpan="2" Grid.Column="0" >
+      <TextBlock Text="{Binding SaveText}" ></TextBlock>
+    </Button>
   </Grid>
 </Window>

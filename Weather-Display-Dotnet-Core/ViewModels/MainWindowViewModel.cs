@@ -24,6 +24,8 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             websiteClient = new HttpClient();
             programSettings = MainWindowModel.LoadSettings();
             LoadSettingsWindow = new DelegateCommand(async () => await OpenSettingsWindow());
+            cycleCheck = (programSettings.minCheck * 12);
+            TimerTrigger(null, null);
         }
 
         private HttpClient _websiteClient;
@@ -49,7 +51,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private async void TimerTrigger(object source, ElapsedEventArgs e)
         {
             // TODO: After implimenting settings, change the number to programSettings.minCheck*12 (minCheck being the minutes between loading the weather data)
-            if (cycleCheck < 24)
+            if (cycleCheck < (programSettings.minCheck * 12))
             {
                 // TODO: Possibly change CurrentTime to a getter and just update it here
                 CurrentTime = DateTime.Now.ToString("hh:mmtt");

@@ -18,26 +18,28 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings>(File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json"));
             LangList = SettingsModel.langInit();
             UnitList = SettingsModel.unitInit();
+            SaveComand = new DelegateCommand(() => SaveSettings());
+            SaveText = "Save";
         }
 
         private Models.Settings _initSettings;
         ObservableCollection<string> _langList;
         ObservableCollection<string> _unitList;
-        private DelegateCommand<ICloseWin> _closeWindowComand;
+        private DelegateCommand _closeWindowComand;
+        private string _saveText;
 
         public Models.Settings initSettings { get => _initSettings; set => _initSettings = value; }
         public ObservableCollection<string> LangList { get => _langList; set => _langList = value; }
         public ObservableCollection<string> UnitList { get => _unitList; set => _unitList = value; }
-        public DelegateCommand<ICloseWin> CloseWindowComand { get => _closeWindowComand; set => _closeWindowComand = value; }
+        public DelegateCommand SaveComand { get => _closeWindowComand; set => _closeWindowComand = value; }
+        public string SaveText { get => _saveText; set => SetField(ref _saveText, value); }
 
 
-        private void CloseWindow(ICloseWin window)
+        private void SaveSettings()
         {
-            if (window != null)
-            {
-                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "settings.json", JsonConvert.SerializeObject(initSettings));
-                window.Close();
-            }
+            SaveText = "Saving";
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "settings.json", JsonConvert.SerializeObject(initSettings));
+            SaveText = "Successfully saved!";
         }
 
         #region PropertyChanged code
