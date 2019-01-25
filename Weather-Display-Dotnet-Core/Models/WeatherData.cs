@@ -12,7 +12,7 @@ namespace Weather_Display_Dotnet_Core.Models
         /// <summary>
         /// The data for the current moment
         /// </summary>
-        public class RightNow
+        public class RightNow : UpdateUI
         {
             private string _summary;
             private string _icon;
@@ -26,13 +26,13 @@ namespace Weather_Display_Dotnet_Core.Models
             [JsonIgnore]
             public IBitmap iconBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/" + _icon + ".png"); }
             [JsonIgnore]
-            public string temperatureDisplay { get => _temperatureDisplay; set => _temperatureDisplay = value; }
+            public string temperatureDisplay { get => _temperatureDisplay; set => SetField(ref _temperatureDisplay, value); }
         }
         /// <summary>
         /// The summary for the week as well as collecting all of the
         /// data for each day for the next 5 days
         /// </summary>
-        public class ByDay
+        public class ByDay : UpdateUI
         {
             public ByDay()
             {
@@ -43,12 +43,12 @@ namespace Weather_Display_Dotnet_Core.Models
             private ObservableCollection<DayData> _data;
 
             public string summary { get => _summary; set => _summary = value; }
-            public ObservableCollection<DayData> data { get => _data; set => _data = value; }
+            public ObservableCollection<DayData> data { get => _data; set => SetField(ref _data, value); }
         }
         /// <summary>
         /// All of the data for that day
         /// </summary>
-        public class DayData
+        public class DayData : UpdateUI
         {
             private string _summary;
             private string _icon;
@@ -77,9 +77,9 @@ namespace Weather_Display_Dotnet_Core.Models
             [JsonIgnore]
             public string sunsetTimeDisplay { get => FromUnix(sunsetTime).ToShortTimeString(); }
             [JsonIgnore]
-            public string temperatureMinDisplay { get => _temperatureMinDisplay; set => _temperatureMinDisplay = value; }
+            public string temperatureMinDisplay { get => _temperatureMinDisplay; set => SetField(ref _temperatureMinDisplay, value); }
             [JsonIgnore]
-            public string temperatureMaxDisplay { get => _temperatureMaxDisplay; set => _temperatureMaxDisplay = value; }
+            public string temperatureMaxDisplay { get => _temperatureMaxDisplay; set => SetField(ref _temperatureMaxDisplay, value); }
         }
         public class FlagsData
         {
@@ -100,7 +100,7 @@ namespace Weather_Display_Dotnet_Core.Models
         /// <summary>
         /// All of the data collected together
         /// </summary>
-        public class WeatherReport
+        public class WeatherReport : UpdateUI
         {
             public WeatherReport()
             {
@@ -113,8 +113,8 @@ namespace Weather_Display_Dotnet_Core.Models
             private ByDay _daily;
             private FlagsData _flags;
 
-            public RightNow currently { get => _currently; set => _currently = value; }
-            public ByDay daily { get => _daily; set => _daily = value; }
+            public RightNow currently { get => _currently; set => SetField(ref _currently, value); }
+            public ByDay daily { get => _daily; set => SetField(ref _daily, value); }
             public FlagsData flags { get => _flags; set => _flags = value; }
         }
     }

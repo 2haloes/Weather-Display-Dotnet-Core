@@ -17,9 +17,11 @@ namespace Weather_Display_Dotnet_Core.Views
                 Models.Settings initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Settings>(System.IO.File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json"));
                 if (initSettings.fullScreen)
                 {
-                    HasSystemDecorations = false;
+                    
                     WindowState = WindowState.Maximized;
                     ClientSize = new Size(Screens.Primary.Bounds.Width, Screens.Primary.Bounds.Height);
+                    HasSystemDecorations = false;
+                    
                 }
             }
 #if DEBUG

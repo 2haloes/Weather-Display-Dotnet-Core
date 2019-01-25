@@ -12,6 +12,9 @@ using System.Text;
 using System.Timers;
 using Avalonia.Media.Imaging;
 using Prism.Commands;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Weather_Display_Dotnet_Core.ViewModels
 {
@@ -24,6 +27,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             websiteClient = new HttpClient();
             programSettings = MainWindowModel.LoadSettings();
             LoadSettingsWindow = new DelegateCommand(async () => await OpenSettingsWindow());
+            LoadDarkSkyWebsite = new DelegateCommand(async () => await LoadWebsite());
             cycleCheck = (programSettings.minCheck * 12);
             TimerTrigger(null, null);
         }
@@ -32,11 +36,14 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private int _cycleCheck;
         private Settings _programSettings;
         private WeatherData.WeatherReport _weatherData;
+        private WeatherData.WeatherReport _weatherDisplay;
         private string _currentTime;
         private Timer _cycleTimer;
         private DelegateCommand _loadSettingsWindow;
+        private DelegateCommand _loadDarkSkyWebsite;
 
         public DelegateCommand LoadSettingsWindow { get => _loadSettingsWindow; set => SetField(ref _loadSettingsWindow, value); }
+        public DelegateCommand LoadDarkSkyWebsite { get => _loadDarkSkyWebsite; set => SetField(ref _loadDarkSkyWebsite, value); }
         public HttpClient websiteClient { get => _websiteClient; set => SetField(ref _websiteClient, value); }
         public IBitmap DefaultIcon { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/clear-day.png"); }
         public IBitmap SunRiseBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-rise.png"); }
@@ -44,6 +51,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public int cycleCheck { get => _cycleCheck; set => SetField(ref _cycleCheck, value); }
         public Settings programSettings { get => _programSettings; set => SetField(ref _programSettings, value); }
         public WeatherData.WeatherReport WeatherData { get => _weatherData; set => SetField(ref _weatherData, value); }
+        public WeatherData.WeatherReport WeatherDisplay { get => _weatherDisplay; set => SetField(ref _weatherDisplay, value); }
         public string CurrentTime { get => _currentTime; set => SetField(ref _currentTime, value); }
         public Timer cycleTimer { get => _cycleTimer; set => SetField(ref _cycleTimer, value); }
 
@@ -76,7 +84,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
 
                 WeatherData = JsonConvert.DeserializeObject<WeatherData.WeatherReport>(await response.Content.ReadAsStringAsync());
 
-                WeatherData = await MainWindowModel.SetTempDisplayAsync(WeatherData);
+                WeatherDisplay = await MainWindowModel.SetTempDisplayAsync(WeatherData);
             }
             return;
         }
@@ -101,6 +109,29 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private void SettingsUpdate()
         {
             programSettings = MainWindowModel.LoadSettings();
+        }
+
+        private async Task LoadWebsite()
+        {
+            string darkSkySite = "https://darksky.net/poweredby/";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = darkSkySite,
+                    UseShellExecute = true
+                };
+                await Task.Run(() => Process.Start(psi));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                await Task.Run(() => Process.Start("open", darkSkySite));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                // Currently bugged when publishing from Visual Studio, use the dotnet publish command instead
+                await Task.Run(() => Process.Start("xdg-open", darkSkySite));
+            }
         }
 
         #region PropertyChanged code
