@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -8,70 +9,115 @@ namespace Weather_Display_Dotnet_Core.Models
     class SettingsModel
     {
 
-        public static Dictionary<string,string> langInit()
+        public static ObservableCollection<string> langInit()
         {
             // If there is a language missing here then please open a PR or an issue
-            return new Dictionary<string, string>()
+            return new ObservableCollection<string>()
             {
                 // Norwegian Bokmål has 2 bindings, nb and no. nb is used here
-                {"Arabic", "ar"},
-                {"Azerbaijani", "az"},
-                {"Belarusian", "be"},
-                {"Bulgarian", "bg"},
-                {"Bosnian", "bs"},
-                {"Catalan", "ca"},
-                {"Czech", "cs"},
-                {"Danish", "da"},
-                {"German", "de"},
-                {"Greek", "el"},
-                {"English", "en"},
-                {"Spanish", "es"},
-                {"Estonian", "et"},
-                {"Finnish", "fi"},
-                {"French", "fr"},
-                {"Hebrew", "he"},
-                {"Croatian", "hr"},
-                {"Hungarian", "hu"},
-                {"Indonesian", "id"},
-                {"Icelandic", "is"},
-                {"Italian", "it"},
-                {"Japanese", "ja"},
-                {"Georgian", "ka"},
-                {"Korean", "ko"},
-                {"Cornish", "kw"},
-                {"Latvian", "lv"},
-                {"Norwegian Bokmål", "nb"},
-                {"Dutch", "nl"},
-                {"Polish", "pl"},
-                {"Portuguese", "pt"},
-                {"Romanian", "ro"},
-                {"Russian", "ru"},
-                {"Slovak", "sk"},
-                {"Slovenian", "sl"},
-                {"Serbian", "sr"},
-                {"Swedish", "sv"},
-                {"Tetum", "tet"},
-                {"Turkish", "tr"},
-                {"Ukrainian", "uk"},
-                {"Igpay Atinlay", "x-pig-latin"},
-                {"Chinese (Simplified)", "zh"},
-                {"Chinese (Traditional)", "zh-tw"}
+                //{"Arabic", "ar"},
+                //{"Azerbaijani", "az"},
+                //{"Belarusian", "be"},
+                //{"Bulgarian", "bg"},
+                //{"Bosnian", "bs"},
+                //{"Catalan", "ca"},
+                //{"Czech", "cs"},
+                //{"Danish", "da"},
+                //{"German", "de"},
+                //{"Greek", "el"},
+                //{"English", "en"},
+                //{"Spanish", "es"},
+                //{"Estonian", "et"},
+                //{"Finnish", "fi"},
+                //{"French", "fr"},
+                //{"Hebrew", "he"},
+                //{"Croatian", "hr"},
+                //{"Hungarian", "hu"},
+                //{"Indonesian", "id"},
+                //{"Icelandic", "is"},
+                //{"Italian", "it"},
+                //{"Japanese", "ja"},
+                //{"Georgian", "ka"},
+                //{"Korean", "ko"},
+                //{"Cornish", "kw"},
+                //{"Latvian", "lv"},
+                //{"Norwegian Bokmål", "nb"},
+                //{"Dutch", "nl"},
+                //{"Polish", "pl"},
+                //{"Portuguese", "pt"},
+                //{"Romanian", "ro"},
+                //{"Russian", "ru"},
+                //{"Slovak", "sk"},
+                //{"Slovenian", "sl"},
+                //{"Serbian", "sr"},
+                //{"Swedish", "sv"},
+                //{"Tetum", "tet"},
+                //{"Turkish", "tr"},
+                //{"Ukrainian", "uk"},
+                //{"Igpay Atinlay", "x-pig-latin"},
+                //{"Chinese (Simplified)", "zh"},
+                //{"Chinese (Traditional)", "zh-tw"}
+                // This was going to be different but I couldn't get it all working
+                "ar",
+                "az",
+                "be",
+                "bg",
+                "bs",
+                "ca",
+                "cs",
+                "da",
+                "de",
+                "el",
+                "en",
+                "es",
+                "et",
+                "fi",
+                "fr",
+                "he",
+                "hr",
+                "hu",
+                "id",
+                "is",
+                "it",
+                "ja",
+                "ka",
+                "ko",
+                "kw",
+                "lv",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "ro",
+                "ru",
+                "sk",
+                "sl",
+                "sr",
+                "sv",
+                "tet",
+                "tr",
+                "uk",
+                "x-pig-latin",
+                "zh",
+                "zh-tw"
             };
-            // Why programmically order instead of ordering this list in code?
-            // This list is taken from the Darksky API Docs, any missing languages can easily be added back in
-            // But the displayed list should be in a good order so that it can actually be used
         }
 
-        public static Dictionary<string, string> unitInit()
+        public static ObservableCollection<string> unitInit()
         {
             // If there is a unit missing here then please open a PR or an issue
-            return new Dictionary<string, string>()
+            return new ObservableCollection<string>()
             {
-                {"Auto", "auto"},
-                {"Canadian", "ca"},
-                {"British", "uk2"},
-                {"American (Imperial)", "us"},
-                {"SI units", "si"},
+                //{"Auto", "auto"},
+                //{"Canadian", "ca"},
+                //{"British", "uk2"},
+                //{"American (Imperial)", "us"},
+                //{"SI units", "si"},
+                "auto",
+                "ca",
+                "uk2",
+                "us",
+                "si",
             };
         }
 

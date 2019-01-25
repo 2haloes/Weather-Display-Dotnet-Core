@@ -9,7 +9,11 @@ namespace Weather_Display_Dotnet_Core.Views
     {
         public SettingsWindow()
         {
+            ViewModels.SettingsViewModel settingsViewModel = new ViewModels.SettingsViewModel();
+
             this.InitializeComponent();
+
+            this.DataContext = settingsViewModel;
 #if DEBUG
             this.AttachDevTools();
 #endif

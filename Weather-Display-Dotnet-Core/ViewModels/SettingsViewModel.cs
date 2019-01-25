@@ -2,6 +2,7 @@
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -20,13 +21,13 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         }
 
         private Models.Settings _initSettings;
-        private Dictionary<string, string> _langList;
-        private Dictionary<string, string> _unitList;
+        ObservableCollection<string> _langList;
+        ObservableCollection<string> _unitList;
         private DelegateCommand<ICloseWin> _closeWindowComand;
 
         public Models.Settings initSettings { get => _initSettings; set => _initSettings = value; }
-        public Dictionary<string, string> LangList { get => _langList; set => _langList = value; }
-        public Dictionary<string, string> UnitList { get => _unitList; set => _unitList = value; }
+        public ObservableCollection<string> LangList { get => _langList; set => _langList = value; }
+        public ObservableCollection<string> UnitList { get => _unitList; set => _unitList = value; }
         public DelegateCommand<ICloseWin> CloseWindowComand { get => _closeWindowComand; set => _closeWindowComand = value; }
 
 

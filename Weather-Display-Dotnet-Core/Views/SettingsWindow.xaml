@@ -3,9 +3,9 @@
         xmlns:vm="clr-namespace:Weather_Display_Dotnet_Core.ViewModels;assembly=Weather_Display_Dotnet_Core"
         Title="Settings">
 
-  <Design.DataContext>
-    <vm:SettingsViewModel/>
-  </Design.DataContext>
+  <!--<Design.DataContext>
+    <vm:settingsViewModel/>
+  </Design.DataContext>-->
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"></ColumnDefinition>
