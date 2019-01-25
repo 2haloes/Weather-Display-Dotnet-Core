@@ -1,13 +1,12 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Weather_Display_Dotnet_Core.ViewModels;assembly=Weather_Display_Dotnet_Core"
-        xmlns:vb="clr-namespace:Avalonia.Controls.ViewBox;assembly=Avalonia.Controls.ViewBox"
+        xmlns:vb="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.ViewBox"
+        xmlns:paz="clr-namespace:Avalonia.Controls.PanAndZoom;assembly=Avalonia.Controls.PanAndZoom"
         Icon="resm:Weather_Display_Dotnet_Core.Assets.avalonia-logo.ico"
         Title="Weather_Display_Dotnet_Core"
         MinHeight="480"
         MinWidth="800"
-        MaxHeight="480"
-        MaxWidth="800"
         Background="SkyBlue">
 
   <!-- 
@@ -18,8 +17,8 @@
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>
-
-  <Grid Margin="5">
+  <vb:ViewBox>
+    <Grid x:Name="MainGrid" Margin="5" Width="800" Height="480">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="296"></ColumnDefinition>
       <ColumnDefinition Width="*"></ColumnDefinition>
@@ -197,6 +196,7 @@
         <TextBlock Text="{Binding WeatherData.daily.data[4].summary, FallbackValue=It's sunny somewhere in the world [No loaded data]}" FontSize="10" Grid.Row="0" Grid.RowSpan="3" Grid.Column="6" TextWrapping="Wrap" Width="60" Margin="5,0,5,0"></TextBlock>
       </Grid>
     </Grid>
+    
   </Grid>
-
+  </vb:ViewBox>
 </Window>

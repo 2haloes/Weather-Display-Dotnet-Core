@@ -93,8 +93,13 @@ namespace Weather_Display_Dotnet_Core.ViewModels
 
         private async System.Threading.Tasks.Task OpenSettingsWindow()
         {
-            Views.SettingsWindow settingsWin = new Views.SettingsWindow();
+            Views.SettingsWindow settingsWin = new Views.SettingsWindow(SettingsUpdate);
             settingsWin.Show();
+            programSettings = MainWindowModel.LoadSettings();
+        }
+
+        private void SettingsUpdate()
+        {
             programSettings = MainWindowModel.LoadSettings();
         }
 

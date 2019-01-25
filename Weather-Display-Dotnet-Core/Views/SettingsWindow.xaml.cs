@@ -1,15 +1,16 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System;
 using Weather_Display_Dotnet_Core.Models;
 
 namespace Weather_Display_Dotnet_Core.Views
 {
     public class SettingsWindow : Window
     {
-        public SettingsWindow()
+        public SettingsWindow(Action saveAction)
         {
-            ViewModels.SettingsViewModel settingsViewModel = new ViewModels.SettingsViewModel();
+            ViewModels.SettingsViewModel settingsViewModel = new ViewModels.SettingsViewModel(saveAction);
 
             this.InitializeComponent();
 
