@@ -35,7 +35,6 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private HttpClient _websiteClient;
         private int _cycleCheck;
         private Settings _programSettings;
-        private WeatherData.WeatherReport _weatherData;
         private WeatherData.WeatherReport _weatherDisplay;
         private string _currentTime;
         private Timer _cycleTimer;
@@ -50,7 +49,6 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public IBitmap SunSetBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-set.png"); }
         public int cycleCheck { get => _cycleCheck; set => SetField(ref _cycleCheck, value); }
         public Settings programSettings { get => _programSettings; set => SetField(ref _programSettings, value); }
-        public WeatherData.WeatherReport WeatherData { get => _weatherData; set => SetField(ref _weatherData, value); }
         public WeatherData.WeatherReport WeatherDisplay { get => _weatherDisplay; set => SetField(ref _weatherDisplay, value); }
         public string CurrentTime { get => _currentTime; set => SetField(ref _currentTime, value); }
         public Timer cycleTimer { get => _cycleTimer; set => SetField(ref _cycleTimer, value); }
@@ -68,9 +66,10 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             else
             {
                 cycleCheck = 0;
+                WeatherData.WeatherReport WeatherData;
 
-                HttpResponseMessage response = await websiteClient.GetAsync(String.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units={3}&lang={4}",
-                    programSettings.apiKey, programSettings.lat, programSettings.lon, programSettings.units, programSettings.lang));
+                HttpResponseMessage response = await websiteClient.GetAsync(String.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units={3}&lang={4}&exclude={5}",
+                    programSettings.apiKey, programSettings.lat, programSettings.lon, programSettings.units, programSettings.lang, "minutely,hourly"));
 
                 try
                 {
@@ -99,7 +98,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             cycleTimer.Enabled = true;
         }
 
-        private async System.Threading.Tasks.Task OpenSettingsWindow()
+        private async Task OpenSettingsWindow()
         {
             Views.SettingsWindow settingsWin = new Views.SettingsWindow(SettingsUpdate);
             settingsWin.Show();

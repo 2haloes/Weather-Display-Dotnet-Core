@@ -24,7 +24,7 @@
       <ColumnDefinition Width="*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
     
-    <Grid Name="NowData" Grid.Column="0">
+    <Grid Name="NowData" Grid.Column="0" Height="480">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"></RowDefinition>
         <RowDefinition Height="Auto"></RowDefinition>
@@ -42,7 +42,7 @@
       <Image Source="{Binding WeatherDisplay.currently.iconBitmap, FallbackValue=DefaultIcon}" Grid.Row="1" Height="148" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
       <TextBlock Text="{Binding WeatherDisplay.currently.icon, FallbackValue=Wind}" Grid.Row="2" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
       <TextBlock Text="{Binding WeatherDisplay.currently.temperatureDisplay, FallbackValue=00.0°C}" Grid.Row="3" FontSize="84" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      <TextBlock Text="{Binding WeatherDisplay.currently.summary, FallbackValue=It's sunny somewhere in the world [No loaded data]}" Grid.Row="4" Width="296" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
+      <TextBlock Text="{Binding WeatherDisplay.daily.summary, FallbackValue=It's sunny somewhere in the world [No loaded data]}" Grid.Row="4" Width="296" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
       <Button Command="{Binding LoadDarkSkyWebsite}" Grid.Row="5" Width="256" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="SkyBlue">Powered by DarkSky</Button>
     </Grid>
 
