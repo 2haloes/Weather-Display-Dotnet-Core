@@ -45,12 +45,14 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public DelegateCommand LoadDarkSkyWebsite { get => _loadDarkSkyWebsite; set => SetField(ref _loadDarkSkyWebsite, value); }
         public HttpClient websiteClient { get => _websiteClient; set => SetField(ref _websiteClient, value); }
         public IBitmap DefaultIcon { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/clear-day.png"); }
+        public WindowIcon WindowIcon => new WindowIcon(AppDomain.CurrentDomain.BaseDirectory + "images/clear_day_icon.ico");
         public IBitmap SunRiseBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-rise.png"); }
         public IBitmap SunSetBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-set.png"); }
         public int cycleCheck { get => _cycleCheck; set => SetField(ref _cycleCheck, value); }
         public Settings programSettings { get => _programSettings; set => SetField(ref _programSettings, value); }
         public WeatherData.WeatherReport WeatherDisplay { get => _weatherDisplay; set => SetField(ref _weatherDisplay, value); }
         public string CurrentTime { get => _currentTime; set => SetField(ref _currentTime, value); }
+        public string SummeryDisplay { get => SummerySetup(); }
         public Timer cycleTimer { get => _cycleTimer; set => SetField(ref _cycleTimer, value); }
 
 
@@ -68,22 +70,23 @@ namespace Weather_Display_Dotnet_Core.ViewModels
                 cycleCheck = 0;
                 WeatherData.WeatherReport WeatherData;
 
-                HttpResponseMessage response = await websiteClient.GetAsync(String.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units={3}&lang={4}&exclude={5}",
-                    programSettings.apiKey, programSettings.lat, programSettings.lon, programSettings.units, programSettings.lang, "minutely,hourly"));
-
                 try
                 {
+                    HttpResponseMessage response = await websiteClient.GetAsync(String.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units={3}&lang={4}&exclude={5}",
+                    programSettings.apiKey, programSettings.lat, programSettings.lon, programSettings.units, programSettings.lang, "minutely,hourly"));
+
                     response.EnsureSuccessStatusCode();
+
+                    WeatherData = JsonConvert.DeserializeObject<WeatherData.WeatherReport>(await response.Content.ReadAsStringAsync());
+
+                    WeatherDisplay = await MainWindowModel.SetTempDisplayAsync(WeatherData);
+                    OnPropertyChanged("SummeryDisplay");
                 }
                 catch (Exception ex)
                 {
                     await MainWindowModel.ErrorReportAsync(ex.Message);
                     return;
                 }
-
-                WeatherData = JsonConvert.DeserializeObject<WeatherData.WeatherReport>(await response.Content.ReadAsStringAsync());
-
-                WeatherDisplay = await MainWindowModel.SetTempDisplayAsync(WeatherData);
             }
             return;
         }
@@ -108,28 +111,23 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private void SettingsUpdate()
         {
             programSettings = MainWindowModel.LoadSettings();
+            OnPropertyChanged("SummeryDisplay");
         }
 
         private async Task LoadWebsite()
         {
-            string darkSkySite = "https://darksky.net/poweredby/";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            await SettingsModel.LoadSite("https://darksky.net/poweredby/");
+        }
+
+        private string SummerySetup()
+        {
+            if (WeatherDisplay != null)
             {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = darkSkySite,
-                    UseShellExecute = true
-                };
-                await Task.Run(() => Process.Start(psi));
+                return (programSettings.summeryType == "Current") ? _weatherDisplay.currently.summary : _weatherDisplay.daily.summary;
             }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            else
             {
-                await Task.Run(() => Process.Start("open", darkSkySite));
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                // Currently bugged when publishing from Visual Studio, use the dotnet publish command instead
-                await Task.Run(() => Process.Start("xdg-open", darkSkySite));
+                return null;
             }
         }
 

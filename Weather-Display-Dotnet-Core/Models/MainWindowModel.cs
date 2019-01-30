@@ -29,7 +29,8 @@ namespace Weather_Display_Dotnet_Core.Models
                     lon = 0,
                     units = "auto",
                     minCheck = 2,
-                    lang = "en"
+                    lang = "en",
+                    summeryType = "Current"
                 };
                 File.WriteAllText(settingsFile, JsonConvert.SerializeObject(newSettings));
                 return newSettings;
