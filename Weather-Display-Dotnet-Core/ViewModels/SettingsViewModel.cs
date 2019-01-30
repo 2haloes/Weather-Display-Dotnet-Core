@@ -18,6 +18,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             initSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings>(File.ReadAllText(System.AppDomain.CurrentDomain.BaseDirectory + "settings.json"));
             LangList = SettingsModel.langInit();
             UnitList = SettingsModel.unitInit();
+            SummeryList = SettingsModel.summeryInit();
             SaveComand = new DelegateCommand(() => SaveSettings());
             SaveText = "Save";
             SaveAction = saveAction;
@@ -26,6 +27,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private Models.Settings _initSettings;
         ObservableCollection<string> _langList;
         ObservableCollection<string> _unitList;
+        ObservableCollection<string> _summeryList;
         private DelegateCommand _closeWindowComand;
         private string _saveText;
         private Action _saveAction;
@@ -33,6 +35,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public Models.Settings initSettings { get => _initSettings; set => _initSettings = value; }
         public ObservableCollection<string> LangList { get => _langList; set => _langList = value; }
         public ObservableCollection<string> UnitList { get => _unitList; set => _unitList = value; }
+        public ObservableCollection<string> SummeryList { get => _summeryList; set => _summeryList = value; }
         public DelegateCommand SaveComand { get => _closeWindowComand; set => _closeWindowComand = value; }
         public string SaveText { get => _saveText; set => SetField(ref _saveText, value); }
         public Action SaveAction { get => _saveAction; set => _saveAction = value; }

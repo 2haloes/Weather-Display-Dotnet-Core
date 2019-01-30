@@ -121,5 +121,14 @@ namespace Weather_Display_Dotnet_Core.Models
             };
         }
 
+        public static ObservableCollection<string> summeryInit()
+        {
+            return new ObservableCollection<string>()
+            {
+                "Current",
+                "Weeklong"
+            };
+        }
+
     }
 }

@@ -51,6 +51,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public Settings programSettings { get => _programSettings; set => SetField(ref _programSettings, value); }
         public WeatherData.WeatherReport WeatherDisplay { get => _weatherDisplay; set => SetField(ref _weatherDisplay, value); }
         public string CurrentTime { get => _currentTime; set => SetField(ref _currentTime, value); }
+        public string SummeryDisplay { get => SummerySetup(); }
         public Timer cycleTimer { get => _cycleTimer; set => SetField(ref _cycleTimer, value); }
 
 
@@ -68,22 +69,23 @@ namespace Weather_Display_Dotnet_Core.ViewModels
                 cycleCheck = 0;
                 WeatherData.WeatherReport WeatherData;
 
-                HttpResponseMessage response = await websiteClient.GetAsync(String.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units={3}&lang={4}&exclude={5}",
-                    programSettings.apiKey, programSettings.lat, programSettings.lon, programSettings.units, programSettings.lang, "minutely,hourly"));
-
                 try
                 {
+                    HttpResponseMessage response = await websiteClient.GetAsync(String.Format("https://api.darksky.net/forecast/{0}/{1},{2}?units={3}&lang={4}&exclude={5}",
+                    programSettings.apiKey, programSettings.lat, programSettings.lon, programSettings.units, programSettings.lang, "minutely,hourly"));
+
                     response.EnsureSuccessStatusCode();
+
+                    WeatherData = JsonConvert.DeserializeObject<WeatherData.WeatherReport>(await response.Content.ReadAsStringAsync());
+
+                    WeatherDisplay = await MainWindowModel.SetTempDisplayAsync(WeatherData);
+                    OnPropertyChanged("SummeryDisplay");
                 }
                 catch (Exception ex)
                 {
                     await MainWindowModel.ErrorReportAsync(ex.Message);
                     return;
                 }
-
-                WeatherData = JsonConvert.DeserializeObject<WeatherData.WeatherReport>(await response.Content.ReadAsStringAsync());
-
-                WeatherDisplay = await MainWindowModel.SetTempDisplayAsync(WeatherData);
             }
             return;
         }
@@ -108,6 +110,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         private void SettingsUpdate()
         {
             programSettings = MainWindowModel.LoadSettings();
+            OnPropertyChanged("SummeryDisplay");
         }
 
         private async Task LoadWebsite()
@@ -130,6 +133,18 @@ namespace Weather_Display_Dotnet_Core.ViewModels
             {
                 // Currently bugged when publishing from Visual Studio, use the dotnet publish command instead
                 await Task.Run(() => Process.Start("xdg-open", darkSkySite));
+            }
+        }
+
+        private string SummerySetup()
+        {
+            if (WeatherDisplay != null)
+            {
+                return (programSettings.summeryType == "Current") ? _weatherDisplay.currently.summary : _weatherDisplay.daily.summary;
+            }
+            else
+            {
+                return null;
             }
         }
 
