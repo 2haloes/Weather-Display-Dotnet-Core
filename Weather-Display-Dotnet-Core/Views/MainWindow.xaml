@@ -3,7 +3,7 @@
         xmlns:vm="clr-namespace:Weather_Display_Dotnet_Core.ViewModels;assembly=Weather_Display_Dotnet_Core"
         xmlns:vb="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.ViewBox"
         xmlns:paz="clr-namespace:Avalonia.Controls.PanAndZoom;assembly=Avalonia.Controls.PanAndZoom"
-        Icon="resm:Weather_Display_Dotnet_Core.Assets.avalonia-logo.ico"
+        Icon="{Binding WindowIcon}"
         Title="Weather_Display_Dotnet_Core"
         MinHeight="480"
         MinWidth="800"

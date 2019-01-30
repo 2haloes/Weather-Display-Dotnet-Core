@@ -45,6 +45,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
         public DelegateCommand LoadDarkSkyWebsite { get => _loadDarkSkyWebsite; set => SetField(ref _loadDarkSkyWebsite, value); }
         public HttpClient websiteClient { get => _websiteClient; set => SetField(ref _websiteClient, value); }
         public IBitmap DefaultIcon { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/clear-day.png"); }
+        public WindowIcon WindowIcon => new WindowIcon(AppDomain.CurrentDomain.BaseDirectory + "images/clear_day_icon.ico");
         public IBitmap SunRiseBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-rise.png"); }
         public IBitmap SunSetBitmap { get => new Bitmap(AppDomain.CurrentDomain.BaseDirectory + "images/sun-set.png"); }
         public int cycleCheck { get => _cycleCheck; set => SetField(ref _cycleCheck, value); }
