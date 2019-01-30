@@ -115,25 +115,7 @@ namespace Weather_Display_Dotnet_Core.ViewModels
 
         private async Task LoadWebsite()
         {
-            string darkSkySite = "https://darksky.net/poweredby/";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = darkSkySite,
-                    UseShellExecute = true
-                };
-                await Task.Run(() => Process.Start(psi));
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                await Task.Run(() => Process.Start("open", darkSkySite));
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                // Currently bugged when publishing from Visual Studio, use the dotnet publish command instead
-                await Task.Run(() => Process.Start("xdg-open", darkSkySite));
-            }
+            await SettingsModel.LoadSite("https://darksky.net/poweredby/");
         }
 
         private string SummerySetup()

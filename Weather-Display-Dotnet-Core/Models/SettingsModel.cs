@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Weather_Display_Dotnet_Core.Models
 {
@@ -128,6 +131,28 @@ namespace Weather_Display_Dotnet_Core.Models
                 "Current",
                 "Weeklong"
             };
+        }
+
+        public static async Task LoadSite(string siteToLoad)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = siteToLoad,
+                    UseShellExecute = true
+                };
+                await Task.Run(() => Process.Start(psi));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                await Task.Run(() => Process.Start("open", siteToLoad));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                // Currently bugged when publishing from Visual Studio, use the dotnet publish command instead
+                await Task.Run(() => Process.Start("xdg-open", siteToLoad));
+            }
         }
 
     }
