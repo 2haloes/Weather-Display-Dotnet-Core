@@ -33,7 +33,7 @@ The previous versions are as follows:
 * Python 3, Winforms had issues crashing but I didn't (and admittedly still don't) know a lot about using Python
 * AvaloniaUI, this version, adds a settings menu and allows for scaling the window up (not done before), being cross platform in a language I know better is a big help in allowing me to maintain and keep the program working if anything breaks
 
-As I have gotten so used to using my own weather display, I have kept it up to date with the best cross platform devlopments I can find
+As I have gotten so used to using my own weather display, I have kept it up to date with the best cross platform developments I can find
 
 
 # Credits
