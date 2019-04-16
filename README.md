@@ -1,6 +1,8 @@
 # Weather-Display-Dotnet-Core
 Cross platform weather display built using dotnet core and AvaloniaUI
 
+![Image showing the Dotnet core weather display](https://sites.2haloes.co.uk//images/weatherdisplay_dotnet.PNG)
+
 ## Minimum requirements 
 ### OS 
 *Any OS that can install dotnet core
